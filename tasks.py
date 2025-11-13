@@ -16,7 +16,9 @@ import numpy as np
 # -----------------------------------------------
 
 def compute_output_size_1d(input_array, kernel_array):
-    pass
+    input_length = len(input_array)
+    kernel_length = len(kernel_array)
+    return (input_length - kernel_length + 1)
 
 
 # -----------------------------------------------
@@ -35,10 +37,13 @@ print(compute_output_size_1d(input_array, kernel_array))
 # -----------------------------------------------
 
 def convolve_1d(input_array, kernel_array):
-    # Tip: start by initializing an empty output array (you can use your function above to calculate the correct size).
-    # Then fill the cells in the array with a loop.
-    pass
+    output_array_size = compute_output_size_1d(input_array, kernel_array)
+    output_array = np.zeros(output_array_size)
 
+    for i in range(output_array_size):
+        slice = input_array[i : i + len(kernel_array)] # kernel-sized slice of input
+        output_array[i] = np.sum(slice * kernel_array) # convolution: multiplies the slice with the kernel
+    return output_array
 # -----------------------------------------------
 # Another tip: write test cases like this, so you can easily test your function.
 input_array = np.array([1, 2, 3, 4, 5])
@@ -56,7 +61,11 @@ print(convolve_1d(input_array, kernel_array))
 # -----------------------------------------------
 
 def compute_output_size_2d(input_matrix, kernel_matrix):
-    pass
+    input_height = shape(input_matrix[0])
+    kernel_height = shape(kernel_matrix[0])
+    input_width = shape(input_matrix[1])
+    kernel_width = shape(kernel_matrix[1])
+    return (input_height - kernel_height + 1, input_width - kernel_width + 1)
 
 
 # -----------------------------------------------
@@ -72,7 +81,22 @@ def compute_output_size_2d(input_matrix, kernel_matrix):
 def convolute_2d(input_matrix, kernel_matrix):
     # Tip: same tips as above, but you might need a nested loop here in order to
     # define which parts of the input matrix need to be multiplied with the kernel matrix.
-    pass
+    input_height = shape(input_matrix[0])
+    kernel_height = shape(kernel_matrix[0])
+    input_width = shape(input_matrix[1])
+    kernel_width = shape(kernel_matrix[1])
+
+    output_matrix_size = compute_output_size_2d(input_matrix, kernel_matrix)
+    output_height = output_matrix_size[0]
+    output_width = output_matrix_size[1]
+    output = np.zeros((output_height, output_width))
+
+    for i in range(output_height):
+        for j in range(output_width):
+            slice = input_matrix[i : i + kernel_height, j:j + kernel_width] # kernel-sized slice of input
+
+        output_matrix[i, j] = np.sum(slice * kernel_matrix) # convolution: multiplies the slice with the kernel
+    return output_matrix
 
 
 # -----------------------------------------------
