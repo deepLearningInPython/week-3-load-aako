@@ -41,8 +41,8 @@ def convolve_1d(input_array, kernel_array):
     output_array = np.zeros(output_array_size)
 
     for i in range(output_array_size):
-        slice = input_array[i : i + len(kernel_array)] # kernel-sized slice of input
-        output_array[i] = np.sum(slice * kernel_array) # convolution: multiplies the slice with the kernel
+        region = input_array[i : i + len(kernel_array)] # kernel-sized region of input
+        output_array[i] = np.sum(region * kernel_array) # convolution: multiplies the region with the kernel
     return output_array
 # -----------------------------------------------
 # Another tip: write test cases like this, so you can easily test your function.
@@ -88,13 +88,14 @@ def convolute_2d(input_matrix, kernel_matrix):
     output_height = input_height - kernel_height + 1
     output_width = input_width - kernel_width + 1
 
-    output = np.zeros((output_height, output_width))
+    output_matrix = np.zeros((output_height, output_width))
 
     for i in range(output_height):
         for j in range(output_width):
-            slice = input_matrix[i : i + kernel_height, j:j + kernel_width] # kernel-sized slice of input
+            region = input_matrix[i : i + kernel_height,
+                                 j:j + kernel_width] # kernel-sized region of input
 
-        output_matrix[i, j] = np.sum(slice * kernel_matrix) # convolution: multiplies the slice with the kernel
+            output_matrix[i, j] = np.sum(region * kernel_matrix) # convolution: multiplies the region with the kernel
     return output_matrix
 
 
