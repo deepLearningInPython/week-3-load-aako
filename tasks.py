@@ -64,10 +64,10 @@ def compute_output_size_2d(input_matrix, kernel_matrix):
     input_height, input_width = input_matrix.shape
     kernel_height, kernel_width = kernel_matrix.shape
 
-    out_height = input_height - kernel_height + 1
-    out_width = input_width - kernel_width + 1
+    output_height = input_height - kernel_height + 1
+    output_width = input_width - kernel_width + 1
 
-    return (out_height, out_width)
+    return (output_height, output_width)
 
 
 # -----------------------------------------------
@@ -83,14 +83,11 @@ def compute_output_size_2d(input_matrix, kernel_matrix):
 def convolute_2d(input_matrix, kernel_matrix):
     # Tip: same tips as above, but you might need a nested loop here in order to
     # define which parts of the input matrix need to be multiplied with the kernel matrix.
-    input_height = shape(input_matrix[0])
-    kernel_height = shape(kernel_matrix[0])
-    input_width = shape(input_matrix[1])
-    kernel_width = shape(kernel_matrix[1])
+    input_height, input_width = input_matrix.shape
+    kernel_height, kernel_width = kernel_matrix.shape
+    output_height = input_height - kernel_height + 1
+    output_width = input_width - kernel_width + 1
 
-    output_matrix_size = compute_output_size_2d(input_matrix, kernel_matrix)
-    output_height = output_matrix_size[0]
-    output_width = output_matrix_size[1]
     output = np.zeros((output_height, output_width))
 
     for i in range(output_height):
